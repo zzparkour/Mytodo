@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hiar.mytodo.activity.MainActivity">
+
+
+    <Button
+        android:text="Button"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="64dp"
+        android:id="@+id/button" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        tools:layout_editor_absoluteX="55dp"
+        android:id="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        android:layout_marginTop="40dp" />
+</android.support.constraint.ConstraintLayout>
