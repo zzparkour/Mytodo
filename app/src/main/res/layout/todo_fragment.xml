@@ -14,7 +14,7 @@
         android:clickable="true"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/floatingActionButton"
         app:layout_constraintLeft_toLeftOf="@+id/todo_fragment_layout"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintTop_toTopOf="@+id/todo_fragment_layout"
@@ -26,4 +26,17 @@
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintVertical_bias="0.88"
         />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/todo_fragment_rec_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/todo_fragment_layout"
+        app:layout_constraintTop_toTopOf="@+id/todo_fragment_layout"
+        app:layout_constraintRight_toRightOf="@+id/todo_fragment_layout"
+        app:layout_constraintBottom_toBottomOf="@+id/todo_fragment_layout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
+        />
+
 </android.support.constraint.ConstraintLayout>

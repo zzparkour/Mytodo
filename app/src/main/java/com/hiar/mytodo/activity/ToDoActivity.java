@@ -1,6 +1,7 @@
 package com.hiar.mytodo.activity;
 
 
+import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.hiar.mytodo.BaseActivity;
 import com.hiar.mytodo.R;
+import com.hiar.mytodo.presenter.ToDoPresenter;
 import com.hiar.mytodo.utils.ActivityUtils;
 import com.hiar.mytodo.view.ToDoFragment;
 
@@ -19,6 +21,7 @@ import com.hiar.mytodo.view.ToDoFragment;
 
 public class ToDoActivity extends BaseActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
     private SearchView sv;
+    private Handler mainThreadHandler=new Handler();
 
     @Override
     protected void onResume() {
@@ -33,6 +36,7 @@ public class ToDoActivity extends BaseActivity implements SearchView.OnQueryText
                     toDoFragment,
                     R.id.base_activity_frame);
         }
+        new ToDoPresenter(toDoFragment,mainThreadHandler);//设置presenter
         setSupportActionBar(toolbar_base);
     }
 

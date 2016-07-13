@@ -5,4 +5,9 @@
 
     <string name="new_root_task">创建新任务</string>
     <string name="task_name">任务名称</string>
+    <string name="positive_text">确定</string>
+    <string name="negative_text">取消</string>
+    <string name="alreadyhas">已经有了哦</string>
+    <string name="add_subtask">创建子任务</string>
+    <string name="delete">删除</string>
 </resources>
