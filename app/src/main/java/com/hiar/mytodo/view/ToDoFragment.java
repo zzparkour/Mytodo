@@ -97,8 +97,8 @@ public class ToDoFragment extends Fragment implements ToDoContract.View, SearchV
     private void initView() {
         todoFragmentRecView.setLayoutManager(new LinearLayoutManager(getContext()));
         todoFragmentRecView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        presenter.findAll(dbManager);//子线程
         todoFragmentRecView.setItemAnimator(new DefaultItemAnimator());
+        presenter.findAll(dbManager);//子线程
         todoFragmentRecView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), todoFragmentRecView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

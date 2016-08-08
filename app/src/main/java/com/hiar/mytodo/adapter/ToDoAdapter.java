@@ -44,9 +44,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         return taskDbs.size();
     }
 
-    static
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textView)
         TextView textView;
 
