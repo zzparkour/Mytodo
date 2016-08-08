@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by qq923 on 2016-7-11.
+ * 主要任务的适配器
  */
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
@@ -28,7 +29,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.todo_adapter_item, parent, false);
-
         ViewHolder viewHolder = new ViewHolder(root);
         return viewHolder;
     }
@@ -38,7 +38,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         holder.textView.setText(taskDbs.get(position).getTaskName());
         holder.textView.setTag(1, taskDbs.get(position).getId());
     }
-
     @Override
     public int getItemCount() {
         return taskDbs.size();
@@ -46,7 +45,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.textView)
+        @BindView(R.id.taskName)
         TextView textView;
 
         public ViewHolder(View itemView) {
