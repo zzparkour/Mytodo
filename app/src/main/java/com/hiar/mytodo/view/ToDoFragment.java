@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,10 +17,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.hiar.mytodo.R;
 import com.hiar.mytodo.adapter.TaskAdapter;
-import com.hiar.mytodo.adapter.ToDoAdapter;
 import com.hiar.mytodo.contract.ToDoContract;
 import com.hiar.mytodo.db.TaskDb;
 import com.hiar.mytodo.utils.RecyclerItemClickListener;
@@ -30,19 +29,20 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import org.xutils.DbManager;
 import org.xutils.x;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by qq923 on 2016-7-8.
+ * <p>
+ * 继承自Fragmentation里的SupportFragment
  */
 
-public class ToDoFragment extends Fragment implements ToDoContract.View, SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+public class ToDoFragment extends SupportFragment implements ToDoContract.View, SearchView.OnQueryTextListener, SearchView.OnCloseListener {
     private static final String TAG = "ToDoFragment";
     @BindView(R.id.floatingActionButton)
     FloatingActionButton floatingActionButton;
@@ -82,48 +82,26 @@ public class ToDoFragment extends Fragment implements ToDoContract.View, SearchV
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.todo_fragment, container, false);
         ButterKnife.bind(this, root);
+        dbManager = x.getDb(daoConfig);
 
-        initEvent();
         initView();//加载recycle的数据
+        initEvent();
 
         return root;
     }
 
     private void initEvent() {
-        dbManager = x.getDb(daoConfig);
+
     }
 
     private void initView() {
         todoFragmentRecView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
 
-        TaskDb taskDb = new TaskDb();
-        taskDb.setTaskName("hello");
-        taskDb.setTaskTime(new Date(23001020));
-
-        TaskDb taskDb1 = new TaskDb();
-        taskDb1.setTaskName("hello1");
-        taskDb1.setTaskTime(new Date(23001020));
-
-        List<TaskDb> task = new ArrayList<>();
-        task.add(taskDb);
-        task.add(taskDb1);
-
-
-        try {
-            TaskAdapter adapter = new TaskAdapter(getContext(), task);
-            todoFragmentRecView.setAdapter(adapter);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //ToDoAdapter adapter = new ToDoAdapter(task);
-        //todoFragmentRecView.setAdapter(adapter);
-
         todoFragmentRecView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), todoFragmentRecView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Toast.makeText(_mActivity, "position:"+position, Toast.LENGTH_SHORT).show();
+                start(TaskDetialFragment.newInstance());
             }
 
             @Override
@@ -151,10 +129,7 @@ public class ToDoFragment extends Fragment implements ToDoContract.View, SearchV
                 });
             }
         }));
-        // TODO: 2016/8/8
-        //presenter.findAll(dbManager);//子线程
-
-
+        presenter.findAll(dbManager);//子线程
     }
 
 
@@ -168,8 +143,6 @@ public class ToDoFragment extends Fragment implements ToDoContract.View, SearchV
 
     private void setupSearchView() {
         searchView.setIconifiedByDefault(true);
-
-
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
     }
@@ -228,14 +201,13 @@ public class ToDoFragment extends Fragment implements ToDoContract.View, SearchV
                     }
                 })
                 .create();
-
         dialog.show();
     }
 
     @Override
     public void createAdapter(List all) {
         Log.e(TAG, "createAdapter: " + all);
-        ToDoAdapter adapter = new ToDoAdapter(all);
+        TaskAdapter adapter = new TaskAdapter(getContext(), all);
         todoFragmentRecView.setAdapter(adapter);
     }
 }
